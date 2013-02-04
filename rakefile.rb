@@ -3,7 +3,7 @@ COPYRIGHT = 'Copyright 2009-2011 Chris Canal. All rights reserved.'
 include FileTest
 require 'albacore'
 
-BUILD_NUMBER_BASE = '1.0.0'
+BUILD_NUMBER_BASE = '1.0'
 BUILD_NUMBER = ENV["BUILD_NUMBER"].nil? ? 0 : ENV["BUILD_NUMBER"]
 PRODUCT = 'SignalR.Castle'
 CLR_TOOLS_VERSION = 'v4.0.30319'
@@ -79,7 +79,7 @@ end
 desc "Runs unit tests"
 nunit :unit_tests => :build do |nunit|
   Dir.mkdir props[:artifacts] unless exists?(props[:artifacts])
-  nunit.command = "tools/NUnit/bin/nunit-console.exe"
+  nunit.command = "tools/NUnit/nunit-console.exe"
   nunit.options '/nothread', '/nologo', "/xml=#{File.join(props[:artifacts], 'nunit-test-results.xml')}"
   nunit.assemblies File.join(props[:src], "SignalR.Castle.Tests/bin/#{BUILD_CONFIG}/SignalR.Castle.Tests.dll")
 end
