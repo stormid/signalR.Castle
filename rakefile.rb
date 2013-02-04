@@ -3,7 +3,7 @@ COPYRIGHT = 'Copyright 2009-2011 Chris Canal. All rights reserved.'
 include FileTest
 require 'albacore'
 
-BUILD_NUMBER_BASE = '1.0.0'
+BUILD_NUMBER_BASE = '1.0'
 BUILD_NUMBER = ENV["BUILD_NUMBER"].nil? ? 0 : ENV["BUILD_NUMBER"]
 PRODUCT = 'SignalR.Castle'
 CLR_TOOLS_VERSION = 'v4.0.30319'
@@ -53,7 +53,7 @@ assemblyinfo :global_version do |asm|
   
   # Assembly file config
   asm.product_name = PRODUCT
-  asm.description = "Git commit hash: #{commit} - #{commit_date} - FluentMvc is a library for adding conventions to ASP.NET MVC using a fluent configuration API."
+  asm.description = "Git commit hash: #{commit} - #{commit_date} - SignalR.Castle"
   asm.version = asm_version
   asm.file_version = build_number
   asm.custom_attributes :AssemblyInformationalVersion => "#{asm_version}", :ComVisibleAttribute => false
@@ -79,19 +79,9 @@ end
 desc "Runs unit tests"
 nunit :unit_tests => :build do |nunit|
   Dir.mkdir props[:artifacts] unless exists?(props[:artifacts])
-  nunit.command = "lib/NUnit/nunit-console.exe"
+  nunit.command = "tools/NUnit/nunit-console.exe"
   nunit.options '/nothread', '/nologo', "/xml=#{File.join(props[:artifacts], 'nunit-test-results.xml')}"
-  nunit.assemblies File.join(props[:src], "FluentMvc.Spec/bin/#{BUILD_CONFIG}/FluentMvc.Spec.dll")
-end
-
-desc "ZIPs up the build results"
-zip :package => :unit_tests do |zip|
-    Dir.mkdir props[:stage] unless exists?(props[:stage])
-    Dir.mkdir props[:artifacts] unless exists?(props[:artifacts])
-    copy(File.join(props[:src], "FluentMvc/bin/#{BUILD_CONFIG}/FluentMvc.dll"), File.join(props[:stage], 'FluentMvc.dll'))
-	zip.directories_to_zip = [props[:stage]]
-	zip.output_file = "FluentMvc-#{BUILD_NUMBER_BASE}.zip"
-	zip.output_path = [props[:artifacts]]
+  nunit.assemblies File.join(props[:src], "SignalR.Castle.Tests/bin/#{BUILD_CONFIG}/SignalR.Castle.Tests.dll")
 end
 
 # desc "Create the nuspec"
