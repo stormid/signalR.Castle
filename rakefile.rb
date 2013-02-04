@@ -49,7 +49,7 @@ assemblyinfo :global_version do |asm|
   commit_date = commit_data[1]
   build_number = "#{BUILD_NUMBER_BASE}.#{Date.today.strftime('%y%j')}"
   tc_build_number = ENV["BUILD_NUMBER"]
-  puts "##teamcity[buildNumber '#{build_number}-#{tc_build_number}']" unless tc_build_number.nil?
+  #puts "##teamcity[buildNumber '#{build_number}-#{tc_build_number}']" unless tc_build_number.nil?
   
   # Assembly file config
   asm.product_name = PRODUCT
